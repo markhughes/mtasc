@@ -1542,7 +1542,7 @@ let exclude_file f =
 
 ;;
 generate_function_ref := generate_function;
-SwfParser.init SwfZip.inflate SwfZip.deflate;
+SwfParser.init Extc.input_zip Extc.output_zip;
 SwfParser.full_parsing := false; (* faster, safer *)
 Swf.warnings := false;
 let swf = ref None in
