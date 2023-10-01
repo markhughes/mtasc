@@ -9,11 +9,14 @@ echo ""
 # get env 
 eval $(opam env)
 
-# Create and set the older OCaml switch
-opam switch create 4.12.0 || opam switch set 4.12.0
-
-# Set the environment to 4.12.0
-eval $(opam env)
+if [ -z "$GITHUB_ACTIONS" ]; then
+  # Not in GitHub Actions environment
+  # Create and set the older OCaml switch
+  opam switch create 4.12.0 || opam switch set 4.12.0
+  
+  # Set the environment to 4.12.0
+  eval $(opam env)
+fi
 
 # Install camlp4 for the older OCaml version
 opam install camlp5
@@ -35,6 +38,8 @@ find . -type f \( -name "*.cmi" -o -name "*.cmo" -o -name "*.p.ml" -o -name "*.c
     ! -path "./zlib/*" ! -path "./ocaml/*" -exec rm -f {} +
 
 rm lexer.ml
+
+echo "all clean!"
 
 echo ""
 echo ""
@@ -59,6 +64,17 @@ echo ""
 
 # Build the project
 ocaml ./build-helper.ml
+
+echo ""
+echo ""
+echo ""
+echo " ###################################################### "
+echo " # copying installers"
+echo " ###################################################### "
+echo ""
+
+cp install.bat bin
+cp install.sh bin
 
 echo ""
 echo ""
