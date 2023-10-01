@@ -1,0 +1,7 @@
+*.cmi
+*.cmo
+*.p.ml
+*.cmx
+*.o
+lexer.ml
+bin/

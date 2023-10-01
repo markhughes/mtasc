@@ -95,7 +95,7 @@ let read_package path =
 			match Array.to_list (try Sys.readdir filepath with Sys_error _ -> [||]) with
 			| [] -> loop l
 			| files ->
-				match List.filter (fun f -> String.ends_with (String.lowercase f) ".as") files with
+				match List.filter (fun f -> String.ends_with (String.lowercase_ascii f) ".as") files with
 				| [] -> loop l
 				| files -> List.map (fun f -> npath ^ f) files
 	in

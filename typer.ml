@@ -953,7 +953,7 @@ let type_file ctx req_path file el pos =
 	let clerror t p =
 		if pos = argv_pos then
 			()
-		else if String.lowercase (s_type_path req_path) = String.lowercase (s_type_path t) then begin
+		else if String.lowercase_ascii (s_type_path req_path) = String.lowercase_ascii (s_type_path t) then begin
 			Hashtbl.remove ctx.files file;
 			error (Class_not_found req_path) pos
 		end else begin
@@ -1047,7 +1047,7 @@ let rec load_class ctx path p =
 		Hashtbl.find ctx.classes path
 	with
 		Not_found ->
-			if String.lowercase (snd path) = "con" then error (Custom "CON is a special file under Windows and shouldn't be used as class name") p;
+			if String.lowercase_ascii (snd path) = "con" then error (Custom "CON is a special file under Windows and shouldn't be used as class name") p;
 			let file_name = (match fst path with
 				 | [] -> snd path ^ ".as"
 				 | _ -> String.concat "/" (fst path) ^ "/" ^ snd path ^ ".as")
