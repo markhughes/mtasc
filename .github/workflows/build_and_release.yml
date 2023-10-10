@@ -43,7 +43,9 @@ jobs:
       - name: Build (Windows - Cygwin)
         if: matrix.shell-name == 'cygwin'
         run: |
-          D:\cygwin\bin\bash.exe --login -i -c "./build.sh"
+          pwd   
+          ls -l  
+          D:\cygwin\bin\bash.exe --login -c "./build.sh"
 
       - name: Zip bin contents
         run: |
