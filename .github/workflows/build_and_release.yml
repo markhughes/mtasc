@@ -14,10 +14,13 @@ jobs:
         include:
           - os: ubuntu-latest
             shell-name: bash
+            ocaml-version: "4.12"
           - os: macos-latest
             shell-name: bash
+            ocaml-version: "4.12"
           - os: windows-latest
             shell-name: cygwin
+            ocaml-version: "4.12"
 
     steps:
       - name: Checkout code
@@ -31,10 +34,6 @@ jobs:
       - name: Get version
         id: get_version
         run: echo "::set-output name=version::$(cat version.txt | head -n1)"
-
-      - name: Print PATH
-        run: echo $PATH
-        shell: bash
 
       - name: Build (Linux/Mac)
         if: matrix.shell-name == 'bash'
