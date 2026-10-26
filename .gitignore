@@ -5,3 +5,4 @@
 *.o
 lexer.ml
 bin/
+_opam/

@@ -33,8 +33,9 @@ echo " # clean up previous build files"
 echo " ###################################################### "
 echo ""
 
-find . -type f \( -name "*.cmi" -o -name "*.cmo" -o -name "*.p.ml" -o -name "*.cmx" -o -name "*.o" \) \
-    ! -path "./zlib/*" ! -path "./ocaml/*" -exec rm -f {} +
+# top level only: subdirectories include the submodules and opam's local switch (./_opam)
+find . -maxdepth 1 -type f \( -name "*.cmi" -o -name "*.cmo" -o -name "*.p.ml" -o -name "*.cmx" -o -name "*.o" \) \
+    -exec rm -f {} +
 
 rm -f lexer.ml
 
