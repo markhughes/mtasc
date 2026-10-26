@@ -1,3 +1,5 @@
+#!/bin/bash
+set -euo pipefail
 echo ""
 echo ""
 echo ""
@@ -9,7 +11,7 @@ echo ""
 # get env 
 eval $(opam env)
 
-if [ -z "$GITHUB_ACTIONS" ]; then
+if [ -z "${GITHUB_ACTIONS:-}" ]; then
   # Not in GitHub Actions environment
   # Create and set the older OCaml switch
   opam switch create 4.12.0 || opam switch set 4.12.0
@@ -18,10 +20,7 @@ if [ -z "$GITHUB_ACTIONS" ]; then
   eval $(opam env)
 fi
 
-# Install camlp4 for the older OCaml version
-opam install camlp5
-opam install extlib
-opam install ocamlfind
+opam install -y camlp5 extlib ocamlfind
 
 # update environment as some systems don't always have the correct path set for those executables
 eval $(opam env)
@@ -37,7 +36,7 @@ echo ""
 find . -type f \( -name "*.cmi" -o -name "*.cmo" -o -name "*.p.ml" -o -name "*.cmx" -o -name "*.o" \) \
     ! -path "./zlib/*" ! -path "./ocaml/*" -exec rm -f {} +
 
-rm lexer.ml
+rm -f lexer.ml
 
 echo "all clean!"
 

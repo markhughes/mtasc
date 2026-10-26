@@ -99,8 +99,8 @@
    ocamlc "-pp camlp5o parser.ml";*)
    command "ocamlfind ocamlopt  -verbose -c expr.ml lexer.ml -pp camlp5o parser.ml -I . -I ./ocaml/extc -I ./ocaml/extlib-leftovers -I ./ocaml/swflib -package extlib typer.ml class.ml plugin.ml genSwf.ml main.ml ";
    let mlist = ["expr";"lexer";"parser";"typer";"class";"plugin";"genSwf";"main"] in
-   if bytecode then command ("ocamlfind ocamlc  -verbose -custom -o ./bin/mtasc-byte" ^ exe_ext ^ " ./ocaml/extLib-leftovers/extLib-leftovers.cma ./ocaml/extc/extc.cma ./ocaml/swflib/swflib.cma " ^ (modules mlist ".cmo") ^ " -package extlib");
-   if native then command ("ocamlfind ocamlopt -verbose -o ./bin/mtasc" ^ exe_ext ^ " -linkpkg -package extlib ./ocaml/extLib-leftovers/extLib-leftovers.cmxa ./ocaml/extc/extc.cmxa ./ocaml/swflib/swflib.cmxa " ^ (modules mlist ".cmx") ^ "");
+   if bytecode then command ("ocamlfind ocamlc  -verbose -custom -o ./bin/mtasc-byte" ^ exe_ext ^ " ./ocaml/extlib-leftovers/extlib-leftovers.cma ./ocaml/extc/extc.cma ./ocaml/swflib/swflib.cma " ^ (modules mlist ".cmo") ^ " -package extlib");
+   if native then command ("ocamlfind ocamlopt -verbose -o ./bin/mtasc" ^ exe_ext ^ " -linkpkg -package extlib ./ocaml/extlib-leftovers/extlib-leftovers.cmxa ./ocaml/extc/extc.cmxa ./ocaml/swflib/swflib.cmxa " ^ (modules mlist ".cmx") ^ "");
  
    command "cp -r ./std ./bin/std";
    command "cp -r ./std8 ./bin/std8";
