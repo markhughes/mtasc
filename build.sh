@@ -20,6 +20,20 @@ if [ -z "${GITHUB_ACTIONS:-}" ]; then
   eval $(opam env)
 fi
 
+# camlp5 needs the perl modules IPC::System::Simple and String::ShellQuote, which opam
+# can't install on cygwin, so drop the (pure perl) modules into cygwin perl directly
+case "$(uname -s)" in
+  CYGWIN*)
+    opam install -y conf-perl
+    PERL_SITELIB="$(perl -MConfig -e 'print $Config{installsitelib}')"
+    mkdir -p "$PERL_SITELIB/IPC/System" "$PERL_SITELIB/String"
+    curl -fsSL https://fastapi.metacpan.org/source/JKEENAN/IPC-System-Simple-1.30/lib/IPC/System/Simple.pm \
+      > "$PERL_SITELIB/IPC/System/Simple.pm"
+    curl -fsSL https://fastapi.metacpan.org/source/ROSCH/String-ShellQuote-1.04/ShellQuote.pm \
+      > "$PERL_SITELIB/String/ShellQuote.pm"
+    ;;
+esac
+
 opam install -y camlp5 extlib ocamlfind
 
 # update environment as some systems don't always have the correct path set for those executables
