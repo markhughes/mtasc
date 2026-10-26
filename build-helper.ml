@@ -76,7 +76,8 @@
  
    (* EXTC *)
    Sys.chdir "ocaml/extc";
-   let c_opts = (if Sys.ocaml_version < "3.08" then " -ccopt -Dcaml_copy_string=copy_string " else " ") in
+   (* use the bundled zlib's header, mingw has no system zlib *)
+   let c_opts = (if Sys.ocaml_version < "3.08" then " -ccopt -Dcaml_copy_string=copy_string " else " ") ^ "-ccopt -I../../zlib " in
    command ("ocamlc" ^ c_opts ^ "extc_stubs.c");
  
    let options = "-cclib ./ocaml/extc/extc_stubs.o " ^ zlib ^ " -package extlib extc.ml process.ml" in
