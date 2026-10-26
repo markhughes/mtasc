@@ -30,6 +30,11 @@ jobs:
             ocaml-version: "4.14"
 
     steps:
+      # keep LF line endings so shell scripts (incl. in submodules) run under cygwin
+      - name: Disable CRLF conversion
+        if: runner.os == 'Windows'
+        run: git config --global core.autocrlf false
+
       - name: Checkout code
         uses: actions/checkout@v4
         with:
