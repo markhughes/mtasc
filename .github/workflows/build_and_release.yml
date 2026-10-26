@@ -33,7 +33,17 @@ jobs:
           submodules: "recursive"
 
       - name: Set up OCaml
+        if: runner.os != 'Windows'
         uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: ${{ matrix.ocaml-version }}
+
+      - name: Set up OCaml (Windows)
+        if: runner.os == 'Windows'
+        uses: ocaml/setup-ocaml@v3
+        env:
+          # GCC 15 defaults to C23, which the OCaml 4.12 runtime doesn't compile under
+          CFLAGS: -std=gnu17
         with:
           ocaml-compiler: ${{ matrix.ocaml-version }}
 
@@ -47,7 +57,7 @@ jobs:
         env:
           # keep the login shell in the workspace instead of cd'ing to $HOME
           CHERE_INVOKING: "1"
-        run: D:\cygwin\bin\bash.exe --login -c "./build.sh"
+        run: C:\.opam\.cygwin\root\bin\bash.exe --login -c "./build.sh"
 
       - name: Upload build
         uses: actions/upload-artifact@v4

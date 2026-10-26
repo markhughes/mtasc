@@ -48,9 +48,10 @@ echo " # zlib build"
 echo " ###################################################### "
 echo ""
 
-cd zlib 
-./configure 
-make
+# use the same C compiler as OCaml so libz.a can be linked (matters for mingw on windows)
+cd zlib
+CC="$(ocamlfind ocamlopt -config-var c_compiler)" ./configure --static
+make libz.a
 cd ..
 
 echo ""
