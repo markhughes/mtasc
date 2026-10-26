@@ -113,7 +113,7 @@ let report ?(do_exit=true) (msg,p) etype printer =
 ;;
 try
 	let exe_ext = match Sys.os_type with "Win32" | "Cygwin" -> ".exe" | _ -> "" in
-	let usage = "Motion-Twin ActionScript2 Compiler 1.14 - (c)2004-2008 Motion-Twin\n Usage : mtasc" ^ exe_ext ^ " [options] <files...>\n Options :" in
+	let usage = "Motion-Twin ActionScript2 Compiler 1.15 - (c)2004-2008 Motion-Twin\n Usage : mtasc" ^ exe_ext ^ " [options] <files...>\n Options :" in
 	let base_path = normalize_path (try Extc.executable_path() with _ -> ".") in
 	let files = ref [] in
 	let time = Sys.time() in
