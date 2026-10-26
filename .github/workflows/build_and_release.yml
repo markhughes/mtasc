@@ -24,7 +24,8 @@ jobs:
             ocaml-version: "4.12"
           - os: windows-latest
             shell-name: cygwin
-            ocaml-version: "4.12"
+            # opam only packages native Windows (mingw) compilers for 4.13+
+            ocaml-version: "4.14"
 
     steps:
       - name: Checkout code
